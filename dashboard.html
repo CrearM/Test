@@ -1,0 +1,529 @@
+<!-- Project: 4 | Author: 1eee6186-748f-4246-9cdc-3510221ad078 | Generated: 2026-03-24T11:43:20.248Z | Build: #1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Crearity AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+        }
+        @media (min-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 2.5fr 1fr;
+            }
+        }
+        .section-card {
+            background-color: var(--color-surface, #FFFFFF);
+            border: 1px solid var(--color-border, #E2E8F0);
+            border-radius: var(--radius-md, 0.5rem);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 0;
+            height: 100%;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-border, #E2E8F0);
+            padding-bottom: 0.75rem;
+        }
+        .section-title {
+            font-family: var(--font-heading, 'Inter', sans-serif);
+            font-weight: 600;
+            color: var(--color-text, #2D3748);
+            margin: 0;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-card {
+            border: 1px solid var(--color-border, #E2E8F0);
+            border-radius: var(--radius-sm, 0.375rem);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all var(--transition-normal, 250ms);
+            background: var(--color-bg, #F5F7FA);
+        }
+        .project-card:hover {
+            border-color: var(--color-secondary, #4A90E2);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+        .project-name {
+            font-weight: 600;
+            color: var(--color-secondary, #4A90E2);
+            text-decoration: none;
+            font-size: 1.125rem;
+        }
+        .project-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full, 9999px);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-active { background: rgba(72, 187, 120, 0.2); color: var(--color-success, #48BB78); }
+        .status-planning { background: rgba(74, 144, 226, 0.2); color: var(--color-secondary, #4A90E2); }
+        .project-meta {
+            font-size: 0.875rem;
+            color: var(--color-text-muted, #718096);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+        }
+        .progress-bar {
+            height: 6px;
+            background: var(--color-border, #E2E8F0);
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            width: 100%;
+        }
+        .progress-value {
+            height: 100%;
+            background: var(--color-accent, #38B2AC);
+            border-radius: 3px;
+        }
+        .avatar-group {
+            display: flex;
+        }
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--color-surface, #FFFFFF);
+            margin-left: -8px;
+            object-fit: cover;
+        }
+        .avatar:first-child { margin-left: 0; }
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--color-border, #E2E8F0);
+        }
+        .list-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .list-icon {
+            color: var(--color-secondary, #4A90E2);
+            flex-shrink: 0;
+            padding-top: 2px;
+        }
+        .list-content h5 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.875rem;
+            color: var(--color-text);
+            font-weight: 600;
+        }
+        .list-content p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+        .ai-recommendation {
+            background: linear-gradient(135deg, rgba(74,144,226,0.08) 0%, rgba(56,178,172,0.08) 100%);
+            border-left: 4px solid var(--color-secondary, #4A90E2);
+            padding: 1.25rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: 1rem;
+        }
+        .ai-recommendation h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--color-text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .ai-recommendation p {
+            font-size: 0.85rem;
+            margin: 0 0 0.75rem 0;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+        .metric-block {
+            background: var(--color-bg, #F5F7FA);
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .trend-up { color: var(--color-success); font-size: 0.875rem; }
+        .trend-down { color: var(--color-error); font-size: 0.875rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="6" fill="var(--color-secondary)"/>
+                    <path d="M12 7L17 17H7L12 7Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="12" cy="14" r="1.5" fill="var(--color-accent)"/>
+                </svg>
+                Crearity<span>AI</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+    
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="project-generator.html" class="nav-link">Project Generator</a></li>
+                <li><a href="project-templates.html" class="nav-link">Templates</a></li>
+                <li><a href="dashboard.html" class="active" class="nav-link">Dashboard</a></li>
+                
+                <li class="nav-actions">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <a href="auth.html" class="btn btn-primary">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content container reveal">
+        <header class="flex justify-between items-center" style="margin-bottom: 2rem; margin-top: 1rem;">
+            <div>
+                <h1 style="margin: 0; font-size: 1.875rem; color: var(--color-text);">Welcome back, Alex</h1>
+                <p class="text-muted" style="margin: 0.25rem 0 0 0;">Here is what's happening with your projects today.</p>
+            </div>
+            <button class="btn btn-outline" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> 
+                Generate Report
+            </button>
+        </header>
+        
+        <div class="dashboard-grid">
+            <div class="flex-col gap-6">
+                <section class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                            Active Projects Overview
+                        </h2>
+                        <a href="project-generator.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">+ New Project</a>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-header">
+                            <a href="#" class="project-name">FinTech Payment Gateway</a>
+                            <span class="project-status status-active">Active Sprint</span>
+                        </div>
+                        <p class="text-muted" style="margin: 0.5rem 0 1rem 0; font-size: 0.9rem;">Modernizing legacy API transitions with Node.js and GraphQL for seamless high-volume transaction handling.</p>
+                        <div>
+                            <div class="flex justify-between" style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">
+                                <span>Phase 3 Completion</span>
+                                <span style="font-weight: 600; color: var(--color-text);">65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-value" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="project-meta">
+                            <span style="display: flex; align-items: center; gap: 0.35rem; color: var(--color-success);">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> 
+                                Budget on track
+                            </span>
+                            <span style="display: flex; align-items: center; gap: 0.35rem;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 
+                                Sprint ends in 4 days
+                            </span>
+                            <div class="avatar-group" style="margin-left: auto;">
+                                <img src="https://loremflickr.com/64/64/developer,man?lock=1" alt="Team member" class="avatar" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=1'">
+                                <img src="https://loremflickr.com/64/64/developer,woman?lock=2" alt="Team member" class="avatar" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=2'">
+                                <img src="https://loremflickr.com/64/64/face,man?lock=3" alt="Team member" class="avatar" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=3'">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card" style="margin-bottom: 0;">
+                        <div class="project-header">
+                            <a href="#" class="project-name">Healthcare CRM Dashboard</a>
+                            <span class="project-status status-planning">Planning</span>
+                        </div>
+                        <p class="text-muted" style="margin: 0.5rem 0 1rem 0; font-size: 0.9rem;">React-based internal tool with highly compliant HIPAA standards focusing on patient data management.</p>
+                        <div>
+                            <div class="flex justify-between" style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 0.25rem;">
+                                <span>Architecture Phase</span>
+                                <span style="font-weight: 600; color: var(--color-text);">15%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-value" style="width: 15%; background: var(--color-secondary);"></div>
+                            </div>
+                        </div>
+                        <div class="project-meta">
+                            <span style="display: flex; align-items: center; gap: 0.35rem;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                Needs AI scaffolding
+                            </span>
+                            <div class="avatar-group" style="margin-left: auto;">
+                                <img src="https://loremflickr.com/64/64/developer,woman?lock=4" alt="Team member" class="avatar" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=4'">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <section class="section-card">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                Team Collaboration
+                            </h2>
+                        </div>
+                        <div class="flex-col gap-2">
+                            <div class="list-item">
+                                <img src="https://loremflickr.com/64/64/developer,man?lock=1" alt="Sarah" class="avatar" style="margin:0; width:36px; height:36px;" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=1'">
+                                <div class="list-content">
+                                    <h5>Sarah Jenkins <span style="font-weight:400; color:var(--color-text-muted)">pushed to</span> origin/main</h5>
+                                    <p>Fixed OAuth token refresh edge cases during intermittent connectivity.</p>
+                                </div>
+                            </div>
+                            <div class="list-item">
+                                <img src="https://loremflickr.com/64/64/face,man?lock=3" alt="David" class="avatar" style="margin:0; width:36px; height:36px;" onerror="this.onerror=null;this.src='https://picsum.photos/64/64?random=3'">
+                                <div class="list-content">
+                                    <h5>David Chen <span style="font-weight:400; color:var(--color-text-muted)">opened PR #142</span></h5>
+                                    <p>Implement Redis caching layer for heavy user endpoints. Awaiting review.</p>
+                                </div>
+                            </div>
+                            <div class="list-item">
+                                <div class="avatar" style="margin:0; width:36px; height:36px; display:flex; align-items:center; justify-content:center; background:var(--color-accent); border:none;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                                </div>
+                                <div class="list-content">
+                                    <h5>System Bot <span style="font-weight:400; color:var(--color-text-muted)">automated action</span></h5>
+                                    <p>Merged Dependabot PR: Bumped React from 18.2 to 18.3 in Healthcare CRM.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section-card">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                Project Analytics
+                            </h2>
+                        </div>
+                        <div class="flex-col gap-4">
+                            <div class="metric-block">
+                                <span class="metric-label">Organization Code Coverage</span>
+                                <div class="flex justify-between items-center">
+                                    <span class="metric-value">87.4% <span class="trend-up">↑ 2.1%</span></span>
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                                </div>
+                            </div>
+                            <div class="metric-block">
+                                <span class="metric-label">Average CI/CD Build Time</span>
+                                <div class="flex justify-between items-center">
+                                    <span class="metric-value">2m 14s <span class="trend-down">↓ 12s</span></span>
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="metric-block">
+                                <span class="metric-label">Active Vulnerabilities</span>
+                                <div class="flex justify-between items-center">
+                                    <span class="metric-value">3 <span class="trend-up">↓ 5</span></span>
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+            <aside class="flex-col gap-6">
+                <section class="section-card" style="background: var(--color-surface);">
+                    <div class="section-header">
+                        <h2 class="section-title" style="color: var(--color-primary);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 12L2.32 15.68a10 10 0 0 0 16.36-1.36L12 12z"></path></svg>
+                            AI Recommendations
+                        </h2>
+                    </div>
+                    
+                    <div class="ai-recommendation">
+                        <h4>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            Security Patch Available
+                        </h4>
+                        <p>3 packages in the <strong>FinTech Gateway</strong> have cross-site scripting vulnerabilities in older versions. Crearity AI can automatically update them and verify regression tests.</p>
+                        <button class="btn btn-primary" style="width: 100%; padding: 0.5rem; font-size: 0.8rem;">Draft Resolution PR</button>
+                    </div>
+                    
+                    <div class="ai-recommendation" style="background: linear-gradient(135deg, rgba(72,187,120,0.08) 0%, rgba(56,178,172,0.08) 100%); border-color: var(--color-success);">
+                        <h4 style="color: var(--color-success);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Optimization Success
+                        </h4>
+                        <p>The recent backend restructuring suggested yesterday resulted in a <strong>14% increase</strong> in test coverage and reduced bundle size by 2.4MB.</p>
+                        <button class="btn btn-outline" style="width: 100%; padding: 0.5rem; font-size: 0.8rem; border-color: var(--color-success); color: var(--color-success);">View Detailed Metrics</button>
+                    </div>
+
+                    <div class="ai-recommendation" style="background: linear-gradient(135deg, rgba(245,101,101,0.08) 0%, rgba(237,137,54,0.08) 100%); border-color: var(--color-error);">
+                        <h4 style="color: var(--color-error);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            Anomaly Detected
+                        </h4>
+                        <p>Database query latency on staging server spiked 400% in the last 2 hours. Reviewing index suggestions is advised.</p>
+                    </div>
+                </section>
+                
+                <section class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                            Notifications
+                        </h2>
+                    </div>
+                    <div class="flex-col">
+                        <div class="list-item">
+                            <div class="list-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                            </div>
+                            <div class="list-content">
+                                <h5>Staging Server Deploy Complete</h5>
+                                <p>Environment v2.1.4 successfully propagated.</p>
+                                <span style="font-size: 0.7rem; color: var(--color-text-muted);">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-icon" style="color: var(--color-success);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <div class="list-content">
+                                <h5>Access Request Approved</h5>
+                                <p>You now have full admin rights to Healthcare CRM repo.</p>
+                                <span style="font-size: 0.7rem; color: var(--color-text-muted);">Yesterday</span>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-icon" style="color: var(--color-text-muted);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            </div>
+                            <div class="list-content">
+                                <h5>Billing Reminder</h5>
+                                <p>Your Pro subscription renews in 7 days.</p>
+                                <span style="font-size: 0.7rem; color: var(--color-text-muted);">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="6" fill="var(--color-secondary)"/>
+                            <path d="M12 7L17 17H7L12 7Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                        Crearity<span>AI</span>
+                    </h3>
+                    <p class="text-muted">Empowering IT developers with intelligent, AI-driven project management, real-time code generation, and intuitive structural planning.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.2-.4-2.4-1.1-3.3 3.4-.4 6.9-1.7 6.9-7.5 0-1.7-.6-3-1.5-4C20.8 6.5 20.8 4.7 20 4c0 0-1.2-.4-4 1.5C14.8 5.2 13.5 5 12 5s-2.8.2-4 .5C5.2 3.6 4 4 4 4c-.8.7-.8 2.5-.4 3.5C2.6 8.5 2 9.8 2 11.5c0 5.8 3.5 7.1 6.9 7.5-.7.9-1.1 2.1-1.1 3.3V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="4" cy="4" r="2" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="project-generator.html" class="footer-link">AI Generator</a></li>
+                        <li><a href="project-templates.html" class="footer-link">Template Library</a></li>
+                        <li><a href="dashboard.html" class="footer-link">Dashboard</a></li>
+                        <li><a href="#" class="footer-link">Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Documentation</a></li>
+                        <li><a href="#" class="footer-link">API Reference</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Crearity AI. All rights reserved.</p>
+                <p>Designed for Developers.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
