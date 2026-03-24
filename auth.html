@@ -1,0 +1,414 @@
+<!-- Project: 4 | Author: 1eee6186-748f-4246-9cdc-3510221ad078 | Generated: 2026-03-24T11:43:20.248Z | Build: #1 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Crearity AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - var(--nav-height) - 100px);
+            padding: 3rem 1rem;
+            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%234A90E2" stroke-width="1" stroke-opacity="0.05"><path d="M0 0l100 100M100 0L0 100"/></g></svg>');
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--color-surface, #FFFFFF);
+            border-radius: var(--radius-lg, 0.75rem);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border, #E2E8F0);
+            overflow: hidden;
+        }
+        .auth-banner {
+            height: 140px;
+            background: linear-gradient(to right, rgba(26,43,60,0.85), rgba(74,144,226,0.85)), url('https://loremflickr.com/800/300/abstract,code?lock=10') center/cover;
+            position: relative;
+            border-bottom: 4px solid var(--color-accent);
+        }
+        .auth-banner-content {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1.5rem;
+            color: #FFFFFF;
+        }
+        .auth-banner-content h1 {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .auth-banner-content p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg, #F5F7FA);
+        }
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1.25rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            border-bottom: 2px solid transparent;
+            transition: all var(--transition-fast);
+            font-family: var(--font-heading);
+        }
+        .auth-tab.active {
+            color: var(--color-secondary, #4A90E2);
+            background: var(--color-surface);
+            border-bottom-color: var(--color-secondary);
+        }
+        .auth-body {
+            padding: 2.5rem 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+        }
+        .btn-full {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            font-weight: 600;
+            margin-top: 1.5rem;
+        }
+        .auth-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+        }
+        .auth-link {
+            color: var(--color-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            cursor: pointer;
+        }
+        .auth-link:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .divider::before { margin-right: 1rem; }
+        .divider::after { margin-left: 1rem; }
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+            font-size: 0.95rem;
+        }
+        .social-btn:hover {
+            background: var(--color-bg, #F5F7FA);
+            border-color: #CBD5E0;
+        }
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="6" fill="var(--color-secondary)"/>
+                    <path d="M12 7L17 17H7L12 7Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="12" cy="14" r="1.5" fill="var(--color-accent)"/>
+                </svg>
+                Crearity<span>AI</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+    
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="project-generator.html" class="nav-link">Project Generator</a></li>
+                <li><a href="project-templates.html" class="nav-link">Templates</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                
+                <li class="nav-actions">
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <a href="auth.html" class="active" class="btn btn-primary">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="auth-wrapper reveal">
+        <div class="auth-container">
+            <div class="auth-banner">
+                <div class="auth-banner-content">
+                    <h1>Welcome to Crearity AI</h1>
+                    <p>Ship flawless software architectures faster.</p>
+                </div>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="switchAuthMode('login')">Sign In</div>
+                <div class="auth-tab" id="tab-register" onclick="switchAuthMode('register')">Create Account</div>
+            </div>
+            
+            <div class="auth-body">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                    <div class="form-group">
+                        <label for="login-email" class="form-label">Email address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="developer@startup.io" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="••••••••" required aria-required="true">
+                    </div>
+                    <div class="auth-options">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" style="accent-color: var(--color-secondary); width: 16px; height: 16px;"> Remember me
+                        </label>
+                        <a class="auth-link" onclick="switchAuthMode('recovery')">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:0.5rem;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                        Sign In
+                    </button>
+
+                    <div class="divider">Or continue with</div>
+
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn" aria-label="Sign in with GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                            GitHub
+                        </button>
+                        <button type="button" class="social-btn" aria-label="Sign in with Google">
+                            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                            Google
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Registration Form -->
+                <form id="register-form" class="auth-form" style="display: none;" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="reg-name" class="form-label">Full Name</label>
+                        <input type="text" id="reg-name" class="form-input" placeholder="Alex Developer" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email" class="form-label">Work Email</label>
+                        <input type="email" id="reg-email" class="form-input" placeholder="alex@company.com" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-role" class="form-label">Primary Role</label>
+                        <select id="reg-role" class="form-input" required aria-required="true">
+                            <option value="" disabled selected>Select your role...</option>
+                            <option value="dev">Software Engineer</option>
+                            <option value="pm">Project/Product Manager</option>
+                            <option value="founder">Startup Founder</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password" class="form-label">Create Password</label>
+                        <input type="password" id="reg-password" class="form-input" placeholder="At least 8 characters" required aria-required="true" minlength="8">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Create Free Account
+                    </button>
+                    
+                    <p style="text-align: center; font-size: 0.8rem; color: var(--color-text-muted); margin-top: 1.5rem;">
+                        By registering, you agree to our <a href="#" class="auth-link">Terms of Service</a> & <a href="#" class="auth-link">Privacy Policy</a>.
+                    </p>
+                </form>
+
+                <!-- Password Recovery Form -->
+                <form id="recovery-form" class="auth-form" style="display: none;" onsubmit="event.preventDefault(); alert('Recovery email sent!'); switchAuthMode('login');">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="width: 64px; height: 64px; background: rgba(74, 144, 226, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-secondary)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <h2 style="margin: 0 0 0.5rem 0; font-family: var(--font-heading); font-size: 1.25rem;">Reset Password</h2>
+                        <p style="margin: 0; color: var(--color-text-muted); font-size: 0.9rem;">Enter the email associated with your account, and we'll send a magic link to reset your password.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rec-email" class="form-label">Email address</label>
+                        <input type="email" id="rec-email" class="form-input" placeholder="developer@startup.io" required aria-required="true">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Send Magic Link
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <a class="auth-link" onclick="switchAuthMode('login')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 0.25rem;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                            Back to Sign In
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchAuthMode(mode) {
+            document.querySelectorAll('.auth-form').forEach(form => form.style.display = 'none');
+            document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(mode + '-form').style.display = 'block';
+            
+            let tab = document.getElementById('tab-' + mode);
+            if(tab) tab.classList.add('active');
+        }
+    </script>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="6" fill="var(--color-secondary)"/>
+                            <path d="M12 7L17 17H7L12 7Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                        Crearity<span>AI</span>
+                    </h3>
+                    <p class="text-muted">Empowering IT developers with intelligent, AI-driven project management, real-time code generation, and intuitive structural planning.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.8c0-1.2-.4-2.4-1.1-3.3 3.4-.4 6.9-1.7 6.9-7.5 0-1.7-.6-3-1.5-4C20.8 6.5 20.8 4.7 20 4c0 0-1.2-.4-4 1.5C14.8 5.2 13.5 5 12 5s-2.8.2-4 .5C5.2 3.6 4 4 4 4c-.8.7-.8 2.5-.4 3.5C2.6 8.5 2 9.8 2 11.5c0 5.8 3.5 7.1 6.9 7.5-.7.9-1.1 2.1-1.1 3.3V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="4" cy="4" r="2" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="project-generator.html" class="footer-link">AI Generator</a></li>
+                        <li><a href="project-templates.html" class="footer-link">Template Library</a></li>
+                        <li><a href="dashboard.html" class="footer-link">Dashboard</a></li>
+                        <li><a href="#" class="footer-link">Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Documentation</a></li>
+                        <li><a href="#" class="footer-link">API Reference</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script> Crearity AI. All rights reserved.</p>
+                <p>Designed for Developers.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
